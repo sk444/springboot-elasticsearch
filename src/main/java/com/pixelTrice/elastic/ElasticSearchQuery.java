@@ -4,6 +4,7 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -17,60 +18,62 @@ public class ElasticSearchQuery {
     @Autowired
     private ElasticsearchClient elasticsearchClient;
 
+    private final String indexName = "products";
+
 
     public String createOrUpdateDocument(Product product) throws IOException {
 
         IndexResponse response = elasticsearchClient.index(i -> i
-                .index("products")
+                .index(indexName)
                 .id(product.getId())
                 .document(product)
         );
-        if(response.result().name().equals("Created")){
+        if (response.result().name().equals("Created")) {
             return new StringBuilder("Document has been successfully created.").toString();
-        }else if(response.result().name().equals("Updated")){
+        } else if (response.result().name().equals("Updated")) {
             return new StringBuilder("Document has been successfully updated.").toString();
         }
         return new StringBuilder("Error while performing the operation.").toString();
     }
 
-    public Product getDocumentById(String productId) throws IOException{
+    public Product getDocumentById(String productId) throws IOException {
         Product product = null;
         GetResponse<Product> response = elasticsearchClient.get(g -> g
-                        .index("products")
+                        .index(indexName)
                         .id(productId),
                 Product.class
         );
 
         if (response.found()) {
-             product = response.source();
+            product = response.source();
             System.out.println("Product name " + product.getName());
         } else {
-            System.out.println ("Product not found");
+            System.out.println("Product not found");
         }
 
-       return product;
+        return product;
     }
 
     public String deleteDocumentById(String productId) throws IOException {
 
-        DeleteRequest request = DeleteRequest.of(d -> d.index("products").id(productId));
+        DeleteRequest request = DeleteRequest.of(d -> d.index(indexName).id(productId));
 
         DeleteResponse deleteResponse = elasticsearchClient.delete(request);
         if (Objects.nonNull(deleteResponse.result()) && !deleteResponse.result().name().equals("NotFound")) {
             return new StringBuilder("Product with id " + deleteResponse.id() + " has been deleted.").toString();
         }
         System.out.println("Product not found");
-        return new StringBuilder("Product with id " + deleteResponse.id()+" does not exist.").toString();
+        return new StringBuilder("Product with id " + deleteResponse.id() + " does not exist.").toString();
 
     }
 
-    public  List<Product> searchAllDocuments() throws IOException {
+    public List<Product> searchAllDocuments() throws IOException {
 
-        SearchRequest searchRequest =  SearchRequest.of(s -> s.index("products"));
-        SearchResponse searchResponse =  elasticsearchClient.search(searchRequest, Product.class);
+        SearchRequest searchRequest = SearchRequest.of(s -> s.index(indexName));
+        SearchResponse searchResponse = elasticsearchClient.search(searchRequest, Product.class);
         List<Hit> hits = searchResponse.hits().hits();
         List<Product> products = new ArrayList<>();
-        for(Hit object : hits){
+        for (Hit object : hits) {
 
             System.out.print(((Product) object.source()));
             products.add((Product) object.source());
