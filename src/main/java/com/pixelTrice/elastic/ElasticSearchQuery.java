@@ -15,11 +15,14 @@ import java.util.Objects;
 @Repository
 public class ElasticSearchQuery {
 
-    @Autowired
+
     private ElasticsearchClient elasticsearchClient;
 
     private final String indexName = "products";
 
+    public ElasticSearchQuery(ElasticsearchClient elasticsearchClient) {
+        this.elasticsearchClient = elasticsearchClient;
+    }
 
     public String createOrUpdateDocument(Product product) throws IOException {
 

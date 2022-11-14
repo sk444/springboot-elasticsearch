@@ -17,7 +17,7 @@ public class ElasticSearchController {
 
     @PostMapping("/createOrUpdateDocument")
     public ResponseEntity<Object> createOrUpdateDocument(@RequestBody Product product) throws IOException {
-          String response = elasticSearchQuery.createOrUpdateDocument(product);
+        String response = elasticSearchQuery.createOrUpdateDocument(product);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

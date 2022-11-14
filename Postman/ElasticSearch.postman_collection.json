@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "9160e0e7-f17b-48b5-b937-c65eb6b21a76",
+		"name": "ElasticSearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21662415"
+	},
+	"item": [
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{subdomain}}:{{port}}/getDocument?productId=2",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"getDocument"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search all Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{subdomain}}:{{port}}/searchDocument",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"searchDocument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let id = pm.environment.get(\"id\");",
+									" id++",
+									"pm.environment.set(\"id\",id)",
+									"",
+									"let name = \"Prodcut \" + id",
+									"pm.environment.set(\"name\", name)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : \"{{id}}\",\n    \"name\" : \"{{name}}\",\n    \"description\": \"description\",\n    \"price\" : 30.3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{subdomain}}:{{port}}/createOrUpdateDocument",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"createOrUpdateDocument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"product 1\",\n    \"description\": \"description\",\n    \"price\" : 30.3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{subdomain}}:{{port}}/deleteDocument?productId=1",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"deleteDocument"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ElasticSearch",
+			"item": [
+				{
+					"name": "get Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{subdomain}}:{{elasticPort}}",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{elasticPort}}"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Product Definition",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{subdomain}}:{{elasticPort}}/products",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{elasticPort}}",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{subdomain}}:{{elasticPort}}/products/_search",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{elasticPort}}",
+							"path": [
+								"products",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Product by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"simple_query_string\" : {\n        \"query\": \"8\",\n        \"fields\": [ \"id\"],\n        \"default_operator\": \"and\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{subdomain}}:{{elasticPort}}/products/_search",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{elasticPort}}",
+							"path": [
+								"products",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Products by name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"simple_query_string\" : {\n        \"query\": \"Prodcut\",\n        \"fields\": [ \"name\"],\n        \"default_operator\": \"and\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{subdomain}}:{{elasticPort}}/products/_search",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{elasticPort}}",
+							"path": [
+								"products",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Products by name",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"simple_query_string\" : {\n        \"query\": \"Prodcut 7\",\n        \"fields\": [ \"name\"],\n        \"default_operator\": \"and\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{subdomain}}:{{elasticPort}}/products/_delete_by_query",
+							"host": [
+								"{{subdomain}}"
+							],
+							"port": "{{elasticPort}}",
+							"path": [
+								"products",
+								"_delete_by_query"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
