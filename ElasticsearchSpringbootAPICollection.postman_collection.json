@@ -6,77 +6,170 @@
 	},
 	"item": [
 		{
-			"name": "New Request",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"BOOK-1\",\r\n    \"name\":\"ElasticSearchBook\",\r\n    \"description\":\"wonderful book\",\r\n    \"price\":100.99\r\n\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "elastic",
+			"item": [
+				{
+					"name": "Elastic/products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9200/products",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"products"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8080/createOrUpdateDocument",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"createOrUpdateDocument"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "New Request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "New Request",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/deleteDocument?productId=BOOK-2",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"deleteDocument"
-					],
-					"query": [
-						{
-							"key": "productId",
-							"value": "BOOK-2"
+				{
+					"name": "Elastic/products/_search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9200/products/_search",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"products",
+								"_search"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Elastic/products/_doc/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9200/products/_doc/BOOK-1",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"products",
+								"_doc",
+								"BOOK-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Elastic/products/_mapping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9200/products/_mapping",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"products",
+								"_mapping"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "New Request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
+			"name": "springboot",
+			"item": [
+				{
+					"name": "SpringBoot/createOrUpdateDocument",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"BOOK-1\",\r\n    \"name\":\"ElasticSearchBook\",\r\n    \"description\":\"wonderful book\",\r\n    \"price\":100.99\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/createOrUpdateDocument",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"createOrUpdateDocument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SpringBoot/getDocument?productId={id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SpringBoot/deleteDocument?{Id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/deleteDocument?productId=BOOK-2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteDocument"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "BOOK-2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SpringBoot/searchDocument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/searchDocument",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"searchDocument"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }
