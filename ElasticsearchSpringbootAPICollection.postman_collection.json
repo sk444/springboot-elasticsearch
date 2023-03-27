@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8f392527-44ae-4a49-8203-cc3a7f03f3dd",
+		"_postman_id": "78b3754d-b3c2-4913-b38c-b88d456c3869",
 		"name": "ElasticsearchSpringbootAPICollection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -20,13 +20,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/createProduct",
+					"raw": "localhost:8080/createOrUpdateDocument",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"createProduct"
+						"createOrUpdateDocument"
 					]
 				}
 			},
@@ -36,7 +36,10 @@
 			"name": "New Request",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -68,7 +71,10 @@
 			"name": "New Request",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
