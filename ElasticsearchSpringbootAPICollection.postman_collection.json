@@ -122,13 +122,26 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "localhost:8080/getDocument?productId=BOOK-2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getDocument"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "BOOK-2"
+								}
+							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "SpringBoot/deleteDocument?{Id}",
+					"name": "SpringBoot/deleteDocument?productId={id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
